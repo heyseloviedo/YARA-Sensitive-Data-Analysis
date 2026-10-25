@@ -35,7 +35,7 @@ ls -la
 
 Both files were located in `/home/analyst`.
 
-*Ref 1: The working directory contained the rule file and investigation archive.*
+The directory listing is visible at the top of the archive screenshot in Step 2.
 
 ---
 
@@ -49,7 +49,9 @@ unzip -l files.zip
 
 The archive contained **24 files**, including configuration files, source code, and logs. Filenames such as `credentials.yaml`, `secrets.json`, and `.env` suggested potentially sensitive contents, but matching required examination of the file data.
 
-*Ref 2: The ZIP archive listing identified 24 files for analysis.*
+![Working directory listing and ZIP archive contents](forensic%20yara%20unzip%20files.png)
+
+*Ref 1: The screenshot shows the supplied files and the archive listing used in Steps 1 and 2.*
 
 ---
 
@@ -71,7 +73,9 @@ The rule used five string identifiers:
 
 Its `any of them` condition meant a file would match if at least one defined string pattern was present.
 
-*Ref 3: The supplied rule contained five sensitive-data indicators and an any-match condition.*
+![Contents of scan.yara showing the five string identifiers and matching condition](forensic%20yara%20scanyara.png)
+
+*Ref 2: The supplied rule contained five sensitive-data patterns and an `any of them` condition.*
 
 ---
 
@@ -109,7 +113,9 @@ extracted/code/app.py
 
 **Result:** 7 of 24 files matched at least one pattern.
 
-*Ref 4: Seven paths appeared in the YARA scan output.*
+![Recursive YARA scan returning seven matching files](yara%20extracted%5C.png)
+
+*Ref 3: Seven paths appeared in the recursive YARA scan output.*
 
 ---
 
@@ -130,7 +136,9 @@ The output showed that `database.ini` matched the **`$password`** identifier. Ac
 
 The **`$certificate`** pattern did not appear in any matches.
 
-*Ref 5: Detailed YARA output identified four distinct matching pattern types and one unmatched pattern.*
+![Detailed YARA output showing matching text and string identifiers](yara%20final%20result.png)
+
+*Ref 4: The `-s` output shows which patterns matched each file. The two `$private_key` occurrences in `secrets.json` count as one matching file and one pattern type.*
 
 ---
 
@@ -150,4 +158,4 @@ This exercise demonstrated how a prewritten YARA rule can quickly triage a colle
 
 ## Evidence
 
-Terminal screenshots captured during the challenge document the initial file listing, archive inspection, rule examination, recursive scan, and string-level match output. The challenge dataset itself is not included here to avoid unnecessarily publishing embedded credential-like values.
+The terminal screenshots are embedded beside the steps they document: archive inspection, rule examination, recursive scanning, and string-level results. The [challenge questions screenshot](yara%20questions.png) provides additional context for the findings. The original archive and rule file are not included in this repository; the screenshots contain values from the challenge output.
