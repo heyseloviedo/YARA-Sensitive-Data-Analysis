@@ -49,7 +49,7 @@ unzip -l files.zip
 
 The archive contained **24 files**, including configuration files, source code, and logs. Filenames such as `credentials.yaml`, `secrets.json`, and `.env` suggested potentially sensitive contents, but matching required examination of the file data.
 
-![Working directory listing and ZIP archive contents](forensic%20yara%20unzip%20files.png)
+<a href="images/archive-contents.png"><img src="images/archive-contents.png" alt="Working directory listing and ZIP archive contents" width="450"></a>
 
 *Ref 1: The screenshot shows the supplied files and the archive listing used in Steps 1 and 2.*
 
@@ -73,7 +73,7 @@ The rule used five string identifiers:
 
 Its `any of them` condition meant a file would match if at least one defined string pattern was present.
 
-![Contents of scan.yara showing the five string identifiers and matching condition](forensic%20yara%20scanyara.png)
+![Contents of scan.yara showing the five string identifiers and matching condition](images/yara-rule.png)
 
 *Ref 2: The supplied rule contained five sensitive-data patterns and an `any of them` condition.*
 
@@ -113,7 +113,7 @@ extracted/code/app.py
 
 **Result:** 7 of 24 files matched at least one pattern.
 
-![Recursive YARA scan returning seven matching files](yara%20extracted%5C.png)
+![Recursive YARA scan returning seven matching files](images/scan-matches.png)
 
 *Ref 3: Seven paths appeared in the recursive YARA scan output.*
 
@@ -136,7 +136,7 @@ The output showed that `database.ini` matched the **`$password`** identifier. Ac
 
 The **`$certificate`** pattern did not appear in any matches.
 
-![Detailed YARA output showing matching text and string identifiers](yara%20final%20result.png)
+![Detailed YARA output showing matching text and string identifiers](images/matching-strings.png)
 
 *Ref 4: The `-s` output shows which patterns matched each file. The two `$private_key` occurrences in `secrets.json` count as one matching file and one pattern type.*
 
@@ -158,4 +158,4 @@ This exercise demonstrated how a prewritten YARA rule can quickly triage a colle
 
 ## Evidence
 
-The terminal screenshots are embedded beside the steps they document: archive inspection, rule examination, recursive scanning, and string-level results. The [challenge questions screenshot](yara%20questions.png) provides additional context for the findings. The original archive and rule file are not included in this repository; the screenshots contain values from the challenge output.
+The terminal screenshots are embedded beside the steps they document: archive inspection, rule examination, recursive scanning, and string-level results. The [challenge questions screenshot](images/challenge-questions.png) provides additional context for the findings. The original archive and rule file are not included in this repository; the screenshots contain values from the challenge output.
